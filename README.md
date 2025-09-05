@@ -29,6 +29,48 @@ WSLをインストールする最も簡単な方法は、単一のコマンド�
 - 最新のLinuxカーネルをダウンロードします。
 - デフォルトのLinuxディストリビューションとしてUbuntuをインストールします。
 
+### インストール時のトラブルシューティング
+
+`wsl --install` の実行中にエラーが発生した場合は、以下の点を確認してください。
+
+#### 1. 仮想化が有効になっていない
+
+**エラー例:** `WSL 2 requires an update to its kernel component.` や `Please enable the Virtual Machine Platform Windows feature and ensure virtualization is enabled in the BIOS.` (エラーコード: `0x80370102` など)
+
+**解決策:**
+
+1.  **BIOS/UEFIで仮想化を有効にする:**
+    *   PCを再起動し、起動中に `F2`、`Del` などのキーを押してBIOS/UEFI設定画面を開きます。
+    *   `Advanced`, `CPU Configuration` といった項目の中に `Intel (R) Virtualization Technology (VT-x)` や `AMD-V (SVM Mode)` のような設定項目があります。これを `Enabled` (有効) に変更して保存し、再起動します。
+
+2.  **Windowsの機能を有効にする:**
+    *   PowerShellを **管理者として** 実行し、以下のコマンドを実行します。
+      ```powershell
+      dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+      dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+      ```
+    *   完了後、PCを再起動します。
+
+#### 2. WSLカーネルが古い
+
+**エラー例:** `WSL 2 requires an update to its kernel component.`
+
+**解決策:**
+
+1.  PowerShellを **管理者として** 実行し、以下のコマンドでWSLを更新します。
+    ```powershell
+    wsl --update
+    ```
+2.  PCを再起動し、再度インストールを試みます。
+
+#### 3. その他のエラー (エラーコード: `0x80070003` など)
+
+**解決策:**
+
+*   **Windowsのバージョンを確認する:** `winver` コマンドで、Windows 10 バージョン 2004 以降、またはWindows 11であることを確認してください。
+*   **Windows Updateを実行する:** システムが最新の状態でない場合にエラーが起きることがあります。
+*   **ストアアプリの保存先を確認する:** **設定 > システム > 記憶域 > 詳細ストレージ設定 > 新しいコンテンツの保存先** を開き、「新しいアプリの保存先」がシステムドライブ（通常は `C:`）になっていることを確認します。
+
 ## 3. 初期Linuxセットアップ
 
 コンピュータが再起動すると、インストールが続行されます。
