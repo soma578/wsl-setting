@@ -1,79 +1,79 @@
-# WSL (Windows Subsystem for Linux) Setup Guide
+# WSL (Windows Subsystem for Linux) セットアップガイド
 
-This guide provides step-by-step instructions for setting up the Windows Subsystem for Linux (WSL) on your Windows machine.
+このガイドは、お使いのWindowsマシンにWSL (Windows Subsystem for Linux) をセットアップするための手順を説明します。
 
-## 1. System Requirements
+## 1. システム要件
 
-- Windows 10 (Version 1607 or later) or Windows 11.
-- Virtualization must be enabled in your computer's BIOS/firmware settings.
+- Windows 10 (バージョン 1607以降) または Windows 11
+- コンピュータのBIOS/ファームウェア設定で仮想化が有効になっていること。
 
-## 2. Installation
+## 2. インストール
 
-The easiest way to install WSL is with a single command.
+WSLをインストールする最も簡単な方法は、単一のコマンドを使用することです。
 
-1.  **Open PowerShell as Administrator**:
-    - Click the Start menu, type "PowerShell".
-    - Right-click on it and select "Run as administrator".
+1.  **PowerShellを管理者として開く**:
+    - スタートメニューをクリックし、「PowerShell」と入力します。
+    - それを右クリックし、「管理者として実行」を選択します。
 
-2.  **Run the Install Command**:
-    - In the PowerShell window, execute the following command:
+2.  **インストールコマンドの実行**:
+    - PowerShellウィンドウで、次のコマンドを実行します:
       ```bash
       wsl --install
       ```
 
-3.  **Restart Your Computer**:
-    - After the process is complete, restart your machine.
+3.  **コンピュータを再起動する**:
+    - 処理が完了したら、マシンを再起動します。
 
-This command will automatically:
-- Enable the necessary Windows features (like the Virtual Machine Platform).
-- Download the latest Linux kernel.
-- Install Ubuntu as the default Linux distribution.
+このコマンドは自動的に以下を実行します:
+- 必要なWindowsの機能を有効にします（仮想マシン プラットフォームなど）。
+- 最新のLinuxカーネルをダウンロードします。
+- デフォルトのLinuxディストリビューションとしてUbuntuをインストールします。
 
-## 3. Initial Linux Setup
+## 3. 初期Linuxセットアップ
 
-After your computer restarts, the installation will continue.
+コンピュータが再起動すると、インストールが続行されます。
 
-1.  **Launch Linux**: The first time you launch your new Linux distribution, a console window will open and wait for a few moments for the files to decompress.
-2.  **Create a User Account**: You will be prompted to create a username and password for your Linux distribution. These credentials do not need to match your Windows login information.
+1.  **Linuxの起動**: 新しくインストールされたLinuxディストリビューションを初めて起動すると、コンソールウィンドウが開き、ファイルが展開されるまで数分間待機します。
+2.  **ユーザーアカウントの作成**: Linuxディストリビューション用のユーザー名とパスワードを作成するように求められます。これらの資格情報は、Windowsのログイン情報と一致する必要はありません。
 
-## 4. Installing a Different Linux Distribution (Optional)
+## 4. 別のLinuxディストリビューションのインストール (任意)
 
-If you want to install a different Linux distribution:
+別のLinuxディストリビューションをインストールしたい場合:
 
-1.  **List Available Distributions**:
+1.  **利用可能なディストリビューションの一覧表示**:
     ```bash
     wsl --list --online
     ```
 
-2.  **Install a Specific Distribution**:
+2.  **特定のディストリビューションのインストール**:
     ```bash
     wsl --install -d <DistroName>
     ```
-    (Replace `<DistroName>` with the name from the list).
+    ( `<DistroName>` をリストの名前で置き換えてください)。
 
-## 5. Using WSL
+## 5. WSLの使用
 
-You can access your Linux distribution by:
-- Launching it from the Start Menu (e.g., "Ubuntu").
-- Typing `wsl` or `ubuntu` in PowerShell or Command Prompt.
+以下の方法でLinuxディストリビューションにアクセスできます:
+- スタートメニューから起動する (例: "Ubuntu")。
+- PowerShellまたはコマンドプロンプトで `wsl` または `ubuntu` と入力する。
 
-Your Windows file system is accessible from within WSL under the `/mnt/` directory (e.g., `cd /mnt/c/Users/YourUser`).
+Windowsのファイルシステムは、WSL内の `/mnt/` ディレクトリからアクセスできます (例: `cd /mnt/c/Users/YourUser`)。
 
-## 6. Pushing to GitHub
+## 6. GitHubへのプッシュ
 
-To share this guide or your WSL projects on GitHub:
+このガイドやWSLプロジェクトをGitHubで共有するには:
 
-1.  **Create a new repository** on [GitHub](https://github.com/new).
-2.  **Initialize Git** in your local `wsl-setting` directory:
+1.  [GitHub](https://github.com/new)で **新しいリポジトリを作成します** 。
+2.  ローカルの `wsl-setting` ディレクトリで **Gitを初期化します**:
     ```bash
     git init
     git add .
     git commit -m "Initial commit: Add WSL setup guide"
     ```
-3.  **Link the remote repository and push**:
+3.  **リモートリポジトリをリンクしてプッシュします**:
     ```bash
     git remote add origin https://github.com/YourUsername/YourRepoName.git
     git branch -M main
     git push -u origin main
     ```
-    (Replace `YourUsername` and `YourRepoName` with your actual GitHub details).
+    ( `YourUsername` と `YourRepoName` を実際のGitHubの情報に置き換えてください)。
