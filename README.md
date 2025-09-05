@@ -78,7 +78,56 @@ WSLをインストールする最も簡単な方法は、単一のコマンド�
 1.  **Linuxの起動**: 新しくインストールされたLinuxディストリビューションを初めて起動すると、コンソールウィンドウが開き、ファイルが展開されるまで数分間待機します。
 2.  **ユーザーアカウントの作成**: Linuxディストリビューション用のユーザー名とパスワードを作成するように求められます。これらの資格情報は、Windowsのログイン情報と一致する必要はありません。
 
-## 4. 別のLinuxディストリビューションのインストール (任意)
+## 4. WSLの再インストール
+
+問題が解決しない場合や、クリーンな状態からやり直したい場合は、WSLを再インストールすることができます。
+
+### 手順1: Linuxディストリビューションの登録を解除する
+
+まず、インストールされているすべてのLinuxディストリビューションの登録を解除（アンインストール）します。
+
+1.  PowerShellを開き、インストール済みのディストリビューション一覧を確認します。
+    ```powershell
+    wsl --list --all
+    ```
+
+2.  一覧に表示された各ディストリビューションを、以下のコマンドで登録解除します。
+    ```powershell
+    wsl --unregister <DistroName>
+    ```
+    (例: `wsl --unregister Ubuntu`)
+
+### 手順2: WSL関連機能の無効化と有効化
+
+次に、WSLに関連するWindowsの機能を一度無効化し、再度有効化します。
+
+1.  PowerShellを **管理者として** 実行し、以下のコマンドで機能を無効化します。
+    ```powershell
+    dism.exe /online /disable-feature /featurename:Microsoft-Windows-Subsystem-Linux /norestart
+    dism.exe /online /disable-feature /featurename:VirtualMachinePlatform /norestart
+    ```
+
+2.  PCを再起動します。
+
+3.  再度PowerShellを **管理者として** 実行し、機能を有効化します。
+    ```powershell
+    dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+    dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+    ```
+
+4.  もう一度PCを再起動します。
+
+### 手順3: WSLの再インストール
+
+最後に、`wsl --install` コマンドで再度インストールを実行します。
+
+```powershell
+wsl --install
+```
+
+これで、WSLがクリーンな状態で再インストールされます。
+
+## 5. 別のLinuxディストリビューションのインストール (任意)
 
 別のLinuxディストリビューションをインストールしたい場合:
 
@@ -93,7 +142,7 @@ WSLをインストールする最も簡単な方法は、単一のコマンド�
     ```
     ( `<DistroName>` をリストの名前で置き換えてください)。
 
-## 5. WSLの使用
+## 6. WSLの使用
 
 以下の方法でLinuxディストリビューションにアクセスできます:
 - スタートメニューから起動する (例: "Ubuntu")。
@@ -101,7 +150,7 @@ WSLをインストールする最も簡単な方法は、単一のコマンド�
 
 Windowsのファイルシステムは、WSL内の `/mnt/` ディレクトリからアクセスできます (例: `cd /mnt/c/Users/YourUser`)。
 
-## 6. GitHubへのプッシュ
+## 7. GitHubへのプッシュ
 
 このガイドやWSLプロジェクトをGitHubで共有するには:
 
